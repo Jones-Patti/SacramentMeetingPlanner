@@ -26,4 +26,13 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Compile Remove="Models2\Bishopric.cs" />
+    <Compile Remove="Models2\Hymn.cs" />
+    <Compile Remove="Models2\People.cs" />
+    <Compile Remove="Models2\Sacrament.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Speakers\Create.cshtml" />
+  </ItemGroup>
 </Project>

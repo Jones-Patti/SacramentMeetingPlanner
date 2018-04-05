@@ -18,6 +18,7 @@ namespace SacramentMeetingPlanner.Data
         public virtual DbSet<Speaker> Speaker { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
 
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Bishopric>(entity =>
@@ -201,6 +202,11 @@ namespace SacramentMeetingPlanner.Data
                 entity.Property(e => e.SacramentId)
                     .HasColumnName("sacrament_id")
                     .HasColumnType("int(6)");
+
+                entity.Property(e => e.SpeakerOrder)
+                    .HasColumnName("speaker_order")
+                    .HasColumnType("int(6)")
+                    .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.TopicId)
                     .HasColumnName("topic_id")
