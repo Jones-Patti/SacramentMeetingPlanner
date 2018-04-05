@@ -20,8 +20,20 @@ namespace SacramentMeetingPlanner.Controllers
         }
 
         // GET: Hymn
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+
+            var hymns = from s in _context.Hymn select s;
+
+            ViewData["CurrentFilter"] = searchString;
+            if (searchString != null)
+            {
+
+                hymns = hymns.Where(s => s.HymnTitle.Contains(searchString));
+                            
+
+            }
+
             return View(await _context.Hymn.ToListAsync());
         }
 
