@@ -15,7 +15,7 @@ namespace SacramentMeetingPlanner.Models
         [Required]
         [Display(Name = "Member Name")]
         public int PeopleId { get; set; }
-        public sbyte Active { get; set; }
+        public bool Active { get; set; }
         [Required]
         [StringLength(15)]
         [Display(Name = "Bishopric Title")]
