@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SacramentMeetingPlanner.Data;
+using SacramentMeetingPlanner.Models;
 
 namespace SacramentMeetingPlanner.Data
+                                 
 {
-    public  class SacramentMeetingPlannerContext : DbContext
+    public class SacramentMeetingPlannerContext : DbContext
     {
         public SacramentMeetingPlannerContext(DbContextOptions<SacramentMeetingPlannerContext> options) : base(options)
         {

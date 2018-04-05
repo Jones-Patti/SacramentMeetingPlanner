@@ -19,12 +19,11 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" /> 
   </ItemGroup>
 
+
   <ItemGroup>
-    <Compile Remove="Models\Bishopric.cs" />
-    <Compile Remove="Models\Hymn.cs" />
-    <Compile Remove="Models\People.cs" />
-    <Compile Remove="Models\SacramentMeetingPlannerContext.cs" />
-    <Compile Remove="Models\Speaker.cs" />
-    <Compile Remove="Models\Topic.cs" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Hymn\Create.cshtml" />
   </ItemGroup>
 </Project>

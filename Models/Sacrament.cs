@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SacramentMeetingPlanner.Data
+namespace SacramentMeetingPlanner.Models
 {
     public partial class Sacrament
     {
