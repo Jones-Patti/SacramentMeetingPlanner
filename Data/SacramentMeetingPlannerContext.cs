@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using SacramentMeetingPlanner.Data;
 
 namespace SacramentMeetingPlanner.Data
 {

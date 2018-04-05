@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using SacramentMeetingPlanner.Data;
+using SacramentMeetingPlanner.Models;
 
 namespace SacramentMeetingPlanner
 {
@@ -23,7 +23,7 @@ namespace SacramentMeetingPlanner
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SacramentMeetingPlannerContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<SacramentMeetingPlannerContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
@@ -53,5 +53,7 @@ namespace SacramentMeetingPlanner
 }
 
 /*
- dotnet ef dbcontext scaffold "Server=132.148.86.237;DataBase=SacramentMeetingPlanner;Uid=sacramentmeeting;Pwd=password" Pomelo.EntityFrameworkCore.MySql -o Models -f
- */
+dotnet ef dbcontext scaffold "Server=132.148.86.237;DataBase=SacramentMeetingPlanner;Uid=sacramentmeeting;Pwd=password" Pomelo.EntityFrameworkCore.MySql -o Models -f
+ 
+dotnet aspnet-codegenerator controller -name HymnController -m Hymn -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+*/
