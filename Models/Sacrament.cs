@@ -11,7 +11,6 @@ namespace SacramentMeetingPlanner.Models
         }
 
 
-
         public int SacramentId { get; set; }
         public DateTime SacramentDate { get; set; }
         public int ConductingBishopric { get; set; }
