@@ -27,5 +27,11 @@
   <ItemGroup>
     <Content Remove="Views\Hymn\Create.cshtml" />
     <Content Remove="Views\Bishopric\Create.cshtml" />
+    <Content Remove="Views\Bishopric\Delete.cshtml" />
+    <Content Remove="Views\Bishopric\Details.cshtml" />
+    <Content Remove="Views\Bishopric\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\BishopricController.cs" />
   </ItemGroup>
 </Project>
