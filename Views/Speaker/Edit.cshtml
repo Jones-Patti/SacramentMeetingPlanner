@@ -1,0 +1,44 @@
+@model SacramentMeetingPlanner.Models.Speaker
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Speaker</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SpeakerId" />
+            <div class="form-group">
+                <label asp-for="PeopleId" class="control-label"></label>
+                <select asp-for="PeopleId" class="form-control" asp-items="ViewBag.PeopleId"></select>
+                <span asp-validation-for="PeopleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SacramentId" class="control-label"></label>
+                <select asp-for="SacramentId" class="form-control" asp-items="ViewBag.SacramentId"></select>
+                <span asp-validation-for="SacramentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TopicId" class="control-label"></label>
+                <select asp-for="TopicId" class="form-control" asp-items="ViewBag.TopicId"></select>
+                <span asp-validation-for="TopicId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

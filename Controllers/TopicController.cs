@@ -10,23 +10,28 @@ using SacramentMeetingPlanner.Models;
 
 namespace SacramentMeetingPlanner.Controllers
 {
-    public class BishopricController : Controller
+    public class TopicController : Controller
     {
         private readonly SacramentMeetingPlannerContext _context;
 
-        public BishopricController(SacramentMeetingPlannerContext context)
+        public TopicController(SacramentMeetingPlannerContext context)
         {
             _context = context;
         }
 
-        // GET: Bishopric
-        public async Task<IActionResult> Index()
+        // GET: Topic
+        public ActionResult Index()
         {
-            var sacramentMeetingPlannerContext = _context.Bishopric.Include(b => b.People);
-            return View(await sacramentMeetingPlannerContext.ToListAsync());
+
+            var topics = from s in _context.Topic select s;
+            topics = topics.OrderBy(s => s.TopicTitle);
+            
+
+            return View(topics.ToList());
         }
 
-        // GET: Bishopric/Details/5
+
+        // GET: Topic/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +39,39 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var bishopric = await _context.Bishopric
-                .Include(b => b.People)
-                .SingleOrDefaultAsync(m => m.BishopricId == id);
-            if (bishopric == null)
+            var topic = await _context.Topic
+                .SingleOrDefaultAsync(m => m.TopicId == id);
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            return View(bishopric);
+            return View(topic);
         }
 
-        // GET: Bishopric/Create
+        // GET: Topic/Create
         public IActionResult Create()
         {
-            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName");
             return View();
         }
 
-        // POST: Bishopric/Create
+        // POST: Topic/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BishopricId,PeopleId,Active,BishopricTitle")] Bishopric bishopric)
+        public async Task<IActionResult> Create([Bind("TopicId,TopicTitle")] Topic topic)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(bishopric);
+                _context.Add(topic);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName", bishopric.PeopleId);
-            return View(bishopric);
+            return View(topic);
         }
 
-        // GET: Bishopric/Edit/5
+        // GET: Topic/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +79,22 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var bishopric = await _context.Bishopric.SingleOrDefaultAsync(m => m.BishopricId == id);
-            if (bishopric == null)
+            var topic = await _context.Topic.SingleOrDefaultAsync(m => m.TopicId == id);
+            if (topic == null)
             {
                 return NotFound();
             }
-            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName", bishopric.PeopleId);
-            return View(bishopric);
+            return View(topic);
         }
 
-        // POST: Bishopric/Edit/5
+        // POST: Topic/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BishopricId,PeopleId,Active,BishopricTitle")] Bishopric bishopric)
+        public async Task<IActionResult> Edit(int id, [Bind("TopicId,TopicTitle")] Topic topic)
         {
-            if (id != bishopric.BishopricId)
+            if (id != topic.TopicId)
             {
                 return NotFound();
             }
@@ -102,12 +103,12 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 try
                 {
-                    _context.Update(bishopric);
+                    _context.Update(topic);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BishopricExists(bishopric.BishopricId))
+                    if (!TopicExists(topic.TopicId))
                     {
                         return NotFound();
                     }
@@ -118,11 +119,10 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName", bishopric.PeopleId);
-            return View(bishopric);
+            return View(topic);
         }
 
-        // GET: Bishopric/Delete/5
+        // GET: Topic/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +130,30 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var bishopric = await _context.Bishopric
-                .Include(b => b.People)
-                .SingleOrDefaultAsync(m => m.BishopricId == id);
-            if (bishopric == null)
+            var topic = await _context.Topic
+                .SingleOrDefaultAsync(m => m.TopicId == id);
+            if (topic == null)
             {
                 return NotFound();
             }
 
-            return View(bishopric);
+            return View(topic);
         }
 
-        // POST: Bishopric/Delete/5
+        // POST: Topic/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bishopric = await _context.Bishopric.SingleOrDefaultAsync(m => m.BishopricId == id);
-            _context.Bishopric.Remove(bishopric);
+            var topic = await _context.Topic.SingleOrDefaultAsync(m => m.TopicId == id);
+            _context.Topic.Remove(topic);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BishopricExists(int id)
+        private bool TopicExists(int id)
         {
-            return _context.Bishopric.Any(e => e.BishopricId == id);
+            return _context.Topic.Any(e => e.TopicId == id);
         }
     }
 }

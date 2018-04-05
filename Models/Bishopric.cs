@@ -23,5 +23,7 @@ namespace SacramentMeetingPlanner.Models
 
         public People People { get; set; }
         public ICollection<Sacrament> Sacrament { get; set; }
+
+       
     }
 }

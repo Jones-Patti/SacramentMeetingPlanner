@@ -1,10 +1,11 @@
-@model IEnumerable<SacramentMeetingPlanner.Models.Sacrament>
+@model SacramentMeetingPlanner.Models.SacramentViewModel
+
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sacrament Meeting";
 }
 
-<h2>Index</h2>
+<h2>Sacrament Meetings</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,60 +14,30 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.SacramentDate)
+                   Date
                 </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.ClosingHymnNavigation)
+                Conducting 
+
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClosingPrayerNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConductingBishopricNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IntermediateHymnNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OpeningHymnNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OpeningPrayerNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SacramentHymnNavigation)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Sacraments) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.SacramentDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClosingHymnNavigation.HymnTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClosingPrayerNavigation.FirstName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.ConductingBishopricNavigation.BishopricTitle)
+                @Html.DisplayFor(modelItem => item.ConductingBishopricNavigation.People.FullName)
             </td>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.IntermediateHymnNavigation.HymnTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpeningHymnNavigation.HymnTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpeningPrayerNavigation.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SacramentHymnNavigation.HymnTitle)
-            </td>
-            <td>
+                <a asp-action="Index" asp-route-id="@item.SacramentId">Select</a> |
                 <a asp-action="Edit" asp-route-id="@item.SacramentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.SacramentId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.SacramentId">Delete</a>
@@ -75,3 +46,40 @@
 }
     </tbody>
 </table>
+
+@if (Model.Speakers != null)
+{
+    <h3> Speakers </h3>
+
+    <p>
+        <a asp-action="Create" asp-controller="speaker"  asp-route-id= "@ViewData["MeetingID"]">Create New</a>
+    
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Topic</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Speakers)
+        {
+            <tr>
+                <td>
+                   
+                    @Html.DisplayFor(modelItem => item.People.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topic.TopicTitle)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="speaker" asp-route-id="@item.SpeakerId">Edit</a> |
+                <a asp-action="Details" asp-controller="speaker" asp-route-id="@item.SacramentId">Details</a> |
+                <a asp-action="Delete" asp-controller="speaker" asp-route-id="@item.SacramentId">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+

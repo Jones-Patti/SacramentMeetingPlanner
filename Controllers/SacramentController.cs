@@ -20,11 +20,49 @@ namespace SacramentMeetingPlanner.Controllers
         }
 
         // GET: Sacrament
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var sacramentMeetingPlannerContext = _context.Sacrament.Include(s => s.ClosingHymnNavigation).Include(s => s.ClosingPrayerNavigation).Include(s => s.ConductingBishopricNavigation).Include(s => s.IntermediateHymnNavigation).Include(s => s.OpeningHymnNavigation).Include(s => s.OpeningPrayerNavigation).Include(s => s.SacramentHymnNavigation);
-            return View(await sacramentMeetingPlannerContext.ToListAsync());
+            var viewModel = new SacramentViewModel();
+            viewModel.Sacraments = await _context.Sacrament.Include(s => s.ClosingHymnNavigation)
+                .Include(s => s.ClosingPrayerNavigation)
+                .Include(s => s.ConductingBishopricNavigation)
+                .Include(s => s.IntermediateHymnNavigation)
+                .Include(s => s.OpeningHymnNavigation)
+                .Include(s => s.OpeningPrayerNavigation)
+                .Include(s => s.SacramentHymnNavigation)
+                .ToListAsync();
+
+
+            if (id != null)
+            {
+
+                ViewData["MeetingID"] = id.Value;
+
+                var speakers = from s in _context.Speaker select s;
+                speakers = speakers.Where(s => s.SacramentId.Equals(id));
+                viewModel.Speakers = speakers;
+
+
+                var selectedMeeting = viewModel.Sacraments.Where(x => x.SacramentId == id).Single();
+                await _context.Entry(selectedMeeting).Collection(x => x.Speaker).LoadAsync();
+                foreach(Speaker speaker in selectedMeeting.Speaker)
+                {
+                    await _context.Entry(speaker).Reference(x => x.People).LoadAsync();
+                    await _context.Entry(speaker).Reference(x => x.Topic).LoadAsync();
+
+                }
+
+                viewModel.Speakers = selectedMeeting.Speaker;
+
+
+            }
+
+            return View(viewModel);
+
         }
+
+
+
 
         // GET: Sacrament/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -77,13 +115,13 @@ namespace SacramentMeetingPlanner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.ClosingHymn);
-            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FirstName", sacrament.ClosingPrayer);
+            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.ClosingHymn);
+            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.ClosingPrayer);
             ViewData["ConductingBishopric"] = new SelectList(_context.Bishopric, "BishopricId", "BishopricTitle", sacrament.ConductingBishopric);
-            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.IntermediateHymn);
-            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.OpeningHymn);
-            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FirstName", sacrament.OpeningPrayer);
-            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.SacramentHymn);
+            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.IntermediateHymn);
+            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.OpeningHymn);
+            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.OpeningPrayer);
+            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.SacramentHymn);
             return View(sacrament);
         }
 
@@ -100,13 +138,13 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.ClosingHymn);
-            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FirstName", sacrament.ClosingPrayer);
+            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.ClosingHymn);
+            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.ClosingPrayer);
             ViewData["ConductingBishopric"] = new SelectList(_context.Bishopric, "BishopricId", "BishopricTitle", sacrament.ConductingBishopric);
-            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.IntermediateHymn);
-            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.OpeningHymn);
-            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FirstName", sacrament.OpeningPrayer);
-            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.SacramentHymn);
+            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.IntermediateHymn);
+            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.OpeningHymn);
+            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.OpeningPrayer);
+            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.SacramentHymn);
             return View(sacrament);
         }
 
@@ -142,13 +180,13 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.ClosingHymn);
-            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FirstName", sacrament.ClosingPrayer);
+            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.ClosingHymn);
+            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FullHymn", sacrament.ClosingPrayer);
             ViewData["ConductingBishopric"] = new SelectList(_context.Bishopric, "BishopricId", "BishopricTitle", sacrament.ConductingBishopric);
-            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.IntermediateHymn);
-            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.OpeningHymn);
-            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FirstName", sacrament.OpeningPrayer);
-            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "HymnTitle", sacrament.SacramentHymn);
+            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.IntermediateHymn);
+            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.OpeningHymn);
+            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.OpeningPrayer);
+            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.SacramentHymn);
             return View(sacrament);
         }
 
