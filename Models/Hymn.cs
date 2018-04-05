@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SacramentMeetingPlanner.Models
 {
@@ -13,9 +14,9 @@ namespace SacramentMeetingPlanner.Models
             SacramentSacramentHymnNavigation = new HashSet<Sacrament>();
         }
 
-
-
+        [Display(Name = "Hymn Number")]
         public int HymnId { get; set; }
+        [Display(Name = "Hymn Title")]
         public string HymnTitle { get; set; }
 
         public ICollection<Sacrament> SacramentClosingHymnNavigation { get; set; }

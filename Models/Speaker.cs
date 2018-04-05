@@ -14,6 +14,4 @@ namespace SacramentMeetingPlanner.Models
         public Sacrament Sacrament { get; set; }
         public Topic Topic { get; set; }
     }
-
-
 }

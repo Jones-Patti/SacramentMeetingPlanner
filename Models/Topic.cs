@@ -15,6 +15,4 @@ namespace SacramentMeetingPlanner.Models
 
         public ICollection<Speaker> Speaker { get; set; }
     }
-
-
 }

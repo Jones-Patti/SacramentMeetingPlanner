@@ -10,7 +10,6 @@ namespace SacramentMeetingPlanner.Models
             Speaker = new HashSet<Speaker>();
         }
 
-
         public int SacramentId { get; set; }
         public DateTime SacramentDate { get; set; }
         public int ConductingBishopric { get; set; }

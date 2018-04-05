@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SacramentMeetingPlanner.Models
 {
@@ -10,11 +11,15 @@ namespace SacramentMeetingPlanner.Models
             Sacrament = new HashSet<Sacrament>();
         }
 
-
-
         public int BishopricId { get; set; }
+        [Required]
+        [Display(Name = "Member Name")]
         public int PeopleId { get; set; }
         public sbyte Active { get; set; }
+        [Required]
+        [StringLength(15)]
+        [Display(Name = "Bishopric Title")]
+        public string BishopricTitle { get; set; }
 
         public People People { get; set; }
         public ICollection<Sacrament> Sacrament { get; set; }

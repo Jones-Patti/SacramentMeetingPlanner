@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using SacramentMeetingPlanner.Models;
 
 namespace SacramentMeetingPlanner.Data
-                                 
 {
     public class SacramentMeetingPlannerContext : DbContext
     {
@@ -17,8 +17,6 @@ namespace SacramentMeetingPlanner.Data
         public virtual DbSet<Sacrament> Sacrament { get; set; }
         public virtual DbSet<Speaker> Speaker { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
-
-       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +32,11 @@ namespace SacramentMeetingPlanner.Data
                 entity.Property(e => e.Active)
                     .HasColumnName("active")
                     .HasColumnType("tinyint(1)");
+
+                entity.Property(e => e.BishopricTitle)
+                    .IsRequired()
+                    .HasColumnName("bishopric_title")
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.PeopleId)
                     .HasColumnName("people_id")

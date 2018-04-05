@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SacramentMeetingPlanner.Models
 {
@@ -14,8 +13,6 @@ namespace SacramentMeetingPlanner.Models
             SacramentOpeningPrayerNavigation = new HashSet<Sacrament>();
             Speaker = new HashSet<Speaker>();
         }
-
-
 
         public int PeopleId { get; set; }
         [Required]
