@@ -16,6 +16,16 @@ namespace SacramentMeetingPlanner.Models
 
         [Display(Name = "Hymn Number")]
         public int HymnId { get; set; }
+
+        [Display(Name = "Hymn")]
+        public string FullHymn
+        {
+            get
+            {
+                return HymnId.ToString() + " " + HymnTitle;
+            }
+        }
+
         [Display(Name = "Hymn Title")]
         public string HymnTitle { get; set; }
 

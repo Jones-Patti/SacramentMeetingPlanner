@@ -62,4 +62,6 @@ dotnet aspnet-codegenerator controller -name MemberController -m People -dc Sacr
 
 dotnet aspnet-codegenerator controller -name BishopricController -m Bishopric -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
 
+dotnet aspnet-codegenerator controller -name SacramentController -m Sacrament -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
 */

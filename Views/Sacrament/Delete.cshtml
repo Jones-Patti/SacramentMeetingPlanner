@@ -1,0 +1,69 @@
+@model SacramentMeetingPlanner.Models.Sacrament
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Sacrament</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SacramentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SacramentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClosingHymnNavigation.HymnTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingPrayerNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClosingPrayerNavigation.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ConductingBishopricNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConductingBishopricNavigation.BishopricTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IntermediateHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IntermediateHymnNavigation.HymnTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OpeningHymnNavigation.HymnTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningPrayerNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OpeningPrayerNavigation.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SacramentHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SacramentHymnNavigation.HymnTitle)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="SacramentId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -17,7 +17,7 @@ namespace SacramentMeetingPlanner.Models
         public int PeopleId { get; set; }
         public bool Active { get; set; }
         [Required]
-        [StringLength(15)]
+        [StringLength(30)]
         [Display(Name = "Bishopric Title")]
         public string BishopricTitle { get; set; }
 

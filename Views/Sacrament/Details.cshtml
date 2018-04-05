@@ -1,0 +1,66 @@
+@model SacramentMeetingPlanner.Models.Sacrament
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sacrament</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SacramentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SacramentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClosingHymnNavigation.HymnTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingPrayerNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClosingPrayerNavigation.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ConductingBishopricNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConductingBishopricNavigation.BishopricTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IntermediateHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IntermediateHymnNavigation.HymnTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OpeningHymnNavigation.HymnTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OpeningPrayerNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OpeningPrayerNavigation.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SacramentHymnNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SacramentHymnNavigation.HymnTitle)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SacramentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
