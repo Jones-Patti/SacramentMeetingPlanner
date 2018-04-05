@@ -13,6 +13,8 @@ namespace SacramentMeetingPlanner.Models
             SacramentSacramentHymnNavigation = new HashSet<Sacrament>();
         }
 
+
+
         public int HymnId { get; set; }
         public string HymnTitle { get; set; }
 

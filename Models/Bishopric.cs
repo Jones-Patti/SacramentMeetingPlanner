@@ -10,6 +10,8 @@ namespace SacramentMeetingPlanner.Models
             Sacrament = new HashSet<Sacrament>();
         }
 
+
+
         public int BishopricId { get; set; }
         public int PeopleId { get; set; }
         public sbyte Active { get; set; }

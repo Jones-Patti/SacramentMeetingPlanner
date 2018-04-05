@@ -13,6 +13,8 @@ namespace SacramentMeetingPlanner.Models
             Speaker = new HashSet<Speaker>();
         }
 
+
+
         public int PeopleId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
