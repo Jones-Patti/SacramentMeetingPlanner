@@ -1,7 +1,7 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px
-}
+﻿/*font-family: 'Courgette', cursive;
+font-family: 'Great Vibes', cursive;
+font-family: 'Yantramanav', sans-serif;
+font-family: 'Archivo Black', sans-serif;*
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -32,4 +32,113 @@
     .carousel-caption {
         display: none
     }
+}
+
+table {
+    border: solid;
+    border-width: 1px;
+    border-color: e6f3f7;
+    box-shadow: 5px 5px 5x green;
+    font-family: 'Yantramanav', sans-serif;
+    color: #424242;
+    font-size: large
+}
+
+    table tr:nth-child(2n+2) {
+        background-color: #596e944d
+    }
+
+.btn {
+    width: 100px;
+    box-shadow: 3px 3px 3px gray
+}
+
+.theButtons {
+    text-align: right
+}
+
+nav .navbar-inverse .navbar-fixed-top {
+    maring-bottom: 50px
+}
+
+.navbar-inverse {
+    background-color: #596e94;
+    border-color: #596e94
+}
+
+.navbar-header .navbar-brand {
+    color: white;
+    font-size: x-large;
+    text-shadow: 3px 3px 3px black;
+    font-family: 'Great Vibes', cursive
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+    text-shadow: 3px 3px 3px black;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: large
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        font-size: larger
+    }
+
+footer {
+    background-color: #596e94;
+    border-color: #596e94;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Yantramanav', sans-serif;
+    color: white;
+    text-shadow: 3px 3px 3px black;
+    font-size: 20px
+}
+
+.jumbotron {
+    background-color: #596e94
+}
+
+    .jumbotron h1 {
+        font-family: 'Great Vibes', cursive;
+        color: white;
+        text-align: center;
+        text-shadow: 3px 3px 3px black
+    }
+
+
+.container body-content {
+    background-color: green
+}
+
+h2 {
+    margin-top: 60px
+}
+
+img {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px black
+}
+
+.moto {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 40px;
+    border: solid;
+    border-width: 1px;
+    box-shadow: 5px 5px 5px gray;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    color: gray
+}
+
+
+
+.frontArea a p {
+    text-align: center;
+    margin-top: 10px;
+    color: black;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: large
 }
