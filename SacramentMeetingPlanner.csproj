@@ -26,5 +26,6 @@
     <Compile Remove="Models\SacramentMeetingPlannerContext.cs" />
     <Compile Remove="Models\Speaker.cs" />
     <Compile Remove="Models\Topic.cs" />
+    <Compile Remove="Models\Sacrament.cs" />
   </ItemGroup>
 </Project>

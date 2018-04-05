@@ -2,10 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace SacramentMeetingPlanner.Models
+namespace SacramentMeetingPlanner.Data
 {
-    public partial class SacramentMeetingPlannerContext : DbContext
+    public  class SacramentMeetingPlannerContext : DbContext
     {
+        public SacramentMeetingPlannerContext(DbContextOptions<SacramentMeetingPlannerContext> options) : base(options)
+        {
+        }
+
         public virtual DbSet<Bishopric> Bishopric { get; set; }
         public virtual DbSet<Hymn> Hymn { get; set; }
         public virtual DbSet<People> People { get; set; }
@@ -13,14 +17,7 @@ namespace SacramentMeetingPlanner.Models
         public virtual DbSet<Speaker> Speaker { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=132.148.86.237;DataBase=SacramentMeetingPlanner;Uid=sacramentmeeting;Pwd=password");
-            }
-        }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
