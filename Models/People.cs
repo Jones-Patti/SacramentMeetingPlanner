@@ -24,6 +24,15 @@ namespace SacramentMeetingPlanner.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + "  " + LastName;
+            }
+        }
+
         public ICollection<Bishopric> Bishopric { get; set; }
         public ICollection<Sacrament> SacramentClosingPrayerNavigation { get; set; }
         public ICollection<Sacrament> SacramentOpeningPrayerNavigation { get; set; }
