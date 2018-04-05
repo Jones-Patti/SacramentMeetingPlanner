@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SacramentMeetingPlanner.Models
 {
@@ -16,7 +18,13 @@ namespace SacramentMeetingPlanner.Models
 
 
         public int PeopleId { get; set; }
+        [Required]
+        [StringLength(15)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Required]
+        [StringLength(15)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         public ICollection<Bishopric> Bishopric { get; set; }

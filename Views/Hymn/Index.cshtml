@@ -1,14 +1,11 @@
 @model IEnumerable<SacramentMeetingPlanner.Models.Hymn>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hymn";
 }
 
-<h2>Index</h2>
+<h2>LDS Hymns</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -23,11 +20,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.HymnTitle)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.HymnId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.HymnId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HymnId">Delete</a>
             </td>
         </tr>
 }

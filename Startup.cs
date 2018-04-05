@@ -57,4 +57,7 @@ namespace SacramentMeetingPlanner
 dotnet ef dbcontext scaffold "Server=132.148.86.237;DataBase=SacramentMeetingPlanner;Uid=sacramentmeeting;Pwd=password" Pomelo.EntityFrameworkCore.MySql -o Models -f
  
 dotnet aspnet-codegenerator controller -name HymnController -m Hymn -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
+dotnet aspnet-codegenerator controller -name MemberController -m People -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
 */
