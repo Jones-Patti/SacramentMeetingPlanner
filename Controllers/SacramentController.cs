@@ -66,9 +66,6 @@ namespace SacramentMeetingPlanner.Controllers
 
         }
 
-
-
-
         // GET: Sacrament/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -76,6 +73,8 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
+
+            var viewModel = new SacramentViewModel();
 
             var sacrament = await _context.Sacrament
                 .Include(s => s.ClosingHymnNavigation)

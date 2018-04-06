@@ -64,17 +64,25 @@
     <a asp-action="Edit" asp-route-id="@Model.Sacrament.SacramentId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 @if (Model.Speakers != null)
 {
     <h3> Speakers </h3>
 
     <p>
+<<<<<<< Updated upstream
        
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
       Add Speaker
     </button>
+=======
+        <a asp-action="Create" asp-controller="speaker"  asp-route-id= "@ViewData["MeetingID"]">Create New</a>
+    
+>>>>>>> Stashed changes
     </p>
 
     <table class="table">
@@ -102,6 +110,7 @@
         }
     </table>
 }
+<<<<<<< Updated upstream
 
 <form asp-action="Create" asp-controller="Speaker">
 <div class="modal" tabindex="-1" role="dialog" id="exampleModalCenter">
@@ -140,3 +149,5 @@
   </div>
 </div>
 </form>  
+=======
+>>>>>>> Stashed changes
