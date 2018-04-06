@@ -63,16 +63,24 @@ namespace SacramentMeetingPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SpeakerId,PeopleId,SacramentId,TopicId")] Speaker speaker)
         {
+            
             if (ModelState.IsValid)
             {
                 _context.Add(speaker);
+                //var count = context.MyTable.Count(t => t.MyContainer.ID == '1');
+                var count = _context.Speaker.Count(t => t.SacramentId == speaker.SacramentId);
+                speaker.SpeakerOrder = (count + 1);
+                _context.Add(speaker);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Sacrament", new {id =  speaker.SacramentId });
             }
             ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FirstName", speaker.PeopleId);
             ViewData["SacramentId"] = new SelectList(_context.Sacrament, "SacramentId", "SacramentId", speaker.SacramentId);
             ViewData["TopicId"] = new SelectList(_context.Topic, "TopicId", "TopicTitle", speaker.TopicId);
-            return View(speaker);
+            //return View(speaker);
+
+            return RedirectToAction("Details", "Sacrament", new { id = speaker.SacramentId });
         }
 
         // GET: Speaker/Edit/5
@@ -99,7 +107,7 @@ namespace SacramentMeetingPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpeakerId,PeopleId,SacramentId,TopicId")] Speaker speaker)
+        public async Task<IActionResult> Edit(int id, [Bind("SpeakerId,PeopleId,SacramentId,TopicId,SpeakerOrder")] Speaker speaker)
         {
             if (id != speaker.SpeakerId)
             {

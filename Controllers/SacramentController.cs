@@ -40,6 +40,8 @@ namespace SacramentMeetingPlanner.Controllers
 
                 var speakers = from s in _context.Speaker select s;
                 speakers = speakers.Where(s => s.SacramentId.Equals(id));
+
+                speakers = speakers.OrderBy(s => s.SpeakerOrder).OrderBy(s => s.SpeakerId);
                 viewModel.Speakers = speakers;
 
 
@@ -54,6 +56,9 @@ namespace SacramentMeetingPlanner.Controllers
 
                 viewModel.Speakers = selectedMeeting.Speaker;
 
+                ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName");
+                ViewData["SacramentId"] = id;
+                ViewData["TopicId"] = new SelectList(_context.Topic, "TopicId", "TopicTitle");
 
             }
 
@@ -89,6 +94,7 @@ namespace SacramentMeetingPlanner.Controllers
 
                 var speakers = from s in _context.Speaker select s;
                 speakers = speakers.Where(s => s.SacramentId.Equals(id));
+                speakers = speakers.OrderBy(s => s.SpeakerOrder);
                 viewModel.Speakers = speakers;
 
             foreach (Speaker speaker in speakers)
@@ -107,6 +113,9 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
+            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName");
+            ViewData["SacramentId"] = id;
+            ViewData["TopicId"] = new SelectList(_context.Topic, "TopicId", "TopicTitle");
 
             return View(viewModel);
         }
