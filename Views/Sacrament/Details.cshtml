@@ -1,4 +1,4 @@
-@model SacramentMeetingPlanner.Models.Sacrament
+@model SacramentMeetingPlanner.Models.SacramentDetailViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,56 +11,92 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SacramentDate)
+            @Html.DisplayNameFor(model => model.Sacrament.SacramentDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SacramentDate)
+            @Html.DisplayFor(model => model.Sacrament.SacramentDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClosingHymnNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.ClosingHymnNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClosingHymnNavigation.HymnTitle)
+            @Html.DisplayFor(model => model.Sacrament.ClosingHymnNavigation.HymnTitle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClosingPrayerNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.ClosingPrayerNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClosingPrayerNavigation.FirstName)
+            @Html.DisplayFor(model => model.Sacrament.ClosingPrayerNavigation.FirstName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ConductingBishopricNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.ConductingBishopricNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ConductingBishopricNavigation.BishopricTitle)
+            @Html.DisplayFor(model => model.Sacrament.ConductingBishopricNavigation.BishopricTitle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IntermediateHymnNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.IntermediateHymnNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IntermediateHymnNavigation.HymnTitle)
+            @Html.DisplayFor(model => model.Sacrament.IntermediateHymnNavigation.HymnTitle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.OpeningHymnNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.OpeningHymnNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OpeningHymnNavigation.HymnTitle)
+            @Html.DisplayFor(model => model.Sacrament.OpeningHymnNavigation.HymnTitle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.OpeningPrayerNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.OpeningPrayerNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OpeningPrayerNavigation.FirstName)
+            @Html.DisplayFor(model => model.Sacrament.OpeningPrayerNavigation.FirstName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.SacramentHymnNavigation)
+            @Html.DisplayNameFor(model => model.Sacrament.SacramentHymnNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.SacramentHymnNavigation.HymnTitle)
+            @Html.DisplayFor(model => model.Sacrament.SacramentHymnNavigation.HymnTitle)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.SacramentId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Sacrament.SacramentId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+@if (Model.Speakers != null)
+{
+    <h3> Speakers </h3>
+
+    <p>
+        <a asp-action="Create" asp-controller="speaker"  asp-route-id= "@ViewData["MeetingID"]">Create New</a>
+    
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Topic</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Speakers)
+        {
+            <tr>
+                <td>
+                   
+                    @Html.DisplayFor(modelItem => item.People.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topic.TopicTitle)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="speaker" asp-route-id="@item.SpeakerId">Edit</a> |
+                <a asp-action="Details" asp-controller="speaker" asp-route-id="@item.SacramentId">Details</a> |
+                <a asp-action="Delete" asp-controller="speaker" asp-route-id="@item.SacramentId">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+

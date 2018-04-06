@@ -81,12 +81,34 @@ namespace SacramentMeetingPlanner.Controllers
                 .Include(s => s.OpeningPrayerNavigation)
                 .Include(s => s.SacramentHymnNavigation)
                 .SingleOrDefaultAsync(m => m.SacramentId == id);
+            
+                SacramentDetailViewModel viewModel = new SacramentDetailViewModel();
+                viewModel.Sacrament = sacrament;
+
+                ViewData["MeetingID"] = id.Value;
+
+                var speakers = from s in _context.Speaker select s;
+                speakers = speakers.Where(s => s.SacramentId.Equals(id));
+                viewModel.Speakers = speakers;
+
+            foreach (Speaker speaker in speakers)
+            {
+                await _context.Entry(speaker).Reference(x => x.People).LoadAsync();
+                await _context.Entry(speaker).Reference(x => x.Topic).LoadAsync();
+
+            }
+
+            viewModel.Speakers = speakers;
+           
+
+
             if (sacrament == null)
             {
                 return NotFound();
             }
 
-            return View(sacrament);
+
+            return View(viewModel);
         }
 
         // GET: Sacrament/Create
