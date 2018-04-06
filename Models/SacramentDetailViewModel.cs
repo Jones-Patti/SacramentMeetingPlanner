@@ -7,6 +7,7 @@ namespace SacramentMeetingPlanner.Models
 {
     public class SacramentDetailViewModel
     {
+        
         public Sacrament Sacrament { get; set; }
         public IEnumerable<Speaker> Speakers { get; set; }
         public Speaker Speaker { get; set; }
