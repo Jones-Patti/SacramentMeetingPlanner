@@ -74,7 +74,6 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var viewModel = new SacramentViewModel();
 
             var sacrament = await _context.Sacrament
                 .Include(s => s.ClosingHymnNavigation)
@@ -85,8 +84,7 @@ namespace SacramentMeetingPlanner.Controllers
                 .Include(s => s.OpeningPrayerNavigation)
                 .Include(s => s.SacramentHymnNavigation)
                 .SingleOrDefaultAsync(m => m.SacramentId == id);
-
-
+            
                 SacramentDetailViewModel viewModel = new SacramentDetailViewModel();
                 viewModel.Sacrament = sacrament;
 
