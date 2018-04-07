@@ -142,3 +142,25 @@ img {
     font-family: 'Yantramanav', sans-serif;
     font-size: large
 }
+
+#sacramentprintdetails {
+    padding: 20px;
+}
+
+@media print {
+    nav {
+        display: none;
+    }
+    h2 {
+        display: none;
+    }
+    footer {
+        display: none;
+    }
+    .container body-content {
+        display: none;
+    }
+    #printedit {
+        display: none;
+    }
+}

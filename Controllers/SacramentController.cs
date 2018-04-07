@@ -95,6 +95,13 @@ namespace SacramentMeetingPlanner.Controllers
                 speakers = speakers.OrderBy(s => s.SpeakerOrder);
                 viewModel.Speakers = speakers;
 
+            int count = _context.Speaker.Count(t => t.SacramentId == id);
+            int roundpeopletop = count/2;
+            int squarepeoplebottom = count - roundpeopletop;
+
+            ViewBag.roundpeopletop = roundpeopletop;
+            ViewBag.squarepeoplebottom = squarepeoplebottom;
+
             foreach (Speaker speaker in speakers)
             {
                 await _context.Entry(speaker).Reference(x => x.People).LoadAsync();
@@ -103,8 +110,6 @@ namespace SacramentMeetingPlanner.Controllers
             }
 
             viewModel.Speakers = speakers;
-           
-
 
             if (sacrament == null)
             {
@@ -174,7 +179,41 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.OpeningHymn);
             ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.OpeningPrayer);
             ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.SacramentHymn);
-            return View(sacrament);
+
+            SacramentDetailViewModel viewModel = new SacramentDetailViewModel();
+            viewModel.Sacrament = sacrament;
+
+            ViewData["MeetingID"] = id.Value;
+
+            var speakers = from s in _context.Speaker select s;
+            speakers = speakers.Where(s => s.SacramentId.Equals(id));
+            speakers = speakers.OrderBy(s => s.SpeakerOrder);
+            viewModel.Speakers = speakers;
+
+            foreach (Speaker speaker in speakers)
+            {
+                await _context.Entry(speaker).Reference(x => x.People).LoadAsync();
+                await _context.Entry(speaker).Reference(x => x.Topic).LoadAsync();
+
+            }
+
+            viewModel.Speakers = speakers;
+
+
+
+            if (sacrament == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName");
+            ViewData["SacramentId"] = id;
+            ViewData["TopicId"] = new SelectList(_context.Topic, "TopicId", "TopicTitle");
+
+
+            //return View(sacrament);
+            return View(viewModel);
+
         }
 
         // POST: Sacrament/Edit/5
@@ -227,21 +266,52 @@ namespace SacramentMeetingPlanner.Controllers
                 return NotFound();
             }
 
-            var sacrament = await _context.Sacrament
-                .Include(s => s.ClosingHymnNavigation)
-                .Include(s => s.ClosingPrayerNavigation)
-                .Include(s => s.ConductingBishopricNavigation)
-                .Include(s => s.IntermediateHymnNavigation)
-                .Include(s => s.OpeningHymnNavigation)
-                .Include(s => s.OpeningPrayerNavigation)
-                .Include(s => s.SacramentHymnNavigation)
-                .SingleOrDefaultAsync(m => m.SacramentId == id);
+            var sacrament = await _context.Sacrament.SingleOrDefaultAsync(m => m.SacramentId == id);
+            if (sacrament == null)
+            {
+                return NotFound();
+            }
+            ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.ClosingHymn);
+            ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.ClosingPrayer);
+            ViewData["ConductingBishopric"] = new SelectList(_context.Bishopric, "BishopricId", "BishopricTitle", sacrament.ConductingBishopric);
+            ViewData["IntermediateHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.IntermediateHymn);
+            ViewData["OpeningHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.OpeningHymn);
+            ViewData["OpeningPrayer"] = new SelectList(_context.People, "PeopleId", "FullName", sacrament.OpeningPrayer);
+            ViewData["SacramentHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.SacramentHymn);
+
+            SacramentDetailViewModel viewModel = new SacramentDetailViewModel();
+            viewModel.Sacrament = sacrament;
+
+            ViewData["MeetingID"] = id.Value;
+
+            var speakers = from s in _context.Speaker select s;
+            speakers = speakers.Where(s => s.SacramentId.Equals(id));
+            speakers = speakers.OrderBy(s => s.SpeakerOrder);
+            viewModel.Speakers = speakers;
+
+            foreach (Speaker speaker in speakers)
+            {
+                await _context.Entry(speaker).Reference(x => x.People).LoadAsync();
+                await _context.Entry(speaker).Reference(x => x.Topic).LoadAsync();
+
+            }
+
+            viewModel.Speakers = speakers;
+
+
+
             if (sacrament == null)
             {
                 return NotFound();
             }
 
-            return View(sacrament);
+            ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FullName");
+            ViewData["SacramentId"] = id;
+            ViewData["TopicId"] = new SelectList(_context.Topic, "TopicId", "TopicTitle");
+
+
+            //return View(sacrament);
+            return View(viewModel);
         }
 
         // POST: Sacrament/Delete/5
