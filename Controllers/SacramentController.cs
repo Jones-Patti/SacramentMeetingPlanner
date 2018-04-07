@@ -312,6 +312,7 @@ namespace SacramentMeetingPlanner.Controllers
 
             //return View(sacrament);
             return View(viewModel);
+
         }
 
         // POST: Sacrament/Delete/5

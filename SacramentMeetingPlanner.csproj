@@ -31,6 +31,7 @@
     <Compile Remove="Models2\Hymn.cs" />
     <Compile Remove="Models2\People.cs" />
     <Compile Remove="Models2\Sacrament.cs" />
+    <Compile Remove="Views\Sacrament\Delete.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Speakers\Create.cshtml" />
