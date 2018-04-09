@@ -172,10 +172,10 @@ img {
 }
 
 
-    #speaker_area .draggable:nth-child(odd) {
+#speaker_area .draggable:nth-child(odd) {
         background-color: #586d936b;
 
-    }
+}
 
 
 
@@ -204,22 +204,58 @@ img {
     }
 }
 
-    /*
-@media print
-    nav {
-        display: none;
-    }
-    h2 {
-        display: none;
-    }
-    footer {
-        display: none;
-    }
-    .container body-content {
-        display: none;
-    }
-    #printedit {
-        display: none;
-    }
+#mainBulletin{
+
+   
+    
+    overflow: auto;
+    border: solid;
+    padding: 20px;
+
 }
-        */
+
+    #mainBulletin .bulletinRow #date {
+        grid-column: 1/4;
+        text-align: center;
+        overflow: auto;
+        margin-top: 5px;
+        margin-bottom: 10px
+    }
+
+    #mainBulletin .bulletinRow {
+        overflow: auto;
+        display: grid;
+        grid-column-gap: 15px;
+        grid-template-columns: auto 5fr auto;
+        margin-bottom: 30px;
+        font-family: 'Yantramanav', sans-serif;
+        font-size: larger;
+        font-weight: bold;
+    }
+
+#mainBulletin .bulletinRow div:nth-child(2) {
+        border-bottom: dashed;
+        border-width: 1px;
+        align-self: center;
+
+}
+
+#mainBulletin .bulletinRow div:nth-child(3){
+    text-align: right;
+}
+
+#mainBulletin .bulletinFullRow{
+    grid-column: 1/4;
+    text-align: center;
+}
+
+#mainBulletin .hymn {
+
+    grid-column: 1/4;
+    text-align: center;
+    font-style: italic;
+    letter-spacing: 4px;
+
+}
+
+

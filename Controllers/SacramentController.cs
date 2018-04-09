@@ -250,7 +250,7 @@ namespace SacramentMeetingPlanner.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", id);
             }
             ViewData["ClosingHymn"] = new SelectList(_context.Hymn, "HymnId", "FullHymn", sacrament.ClosingHymn);
             ViewData["ClosingPrayer"] = new SelectList(_context.People, "PeopleId", "FullHymn", sacrament.ClosingPrayer);

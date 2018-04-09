@@ -1,0 +1,29 @@
+﻿@media print{
+    
+    nav {
+        display: none;
+    }
+    h2 {
+        display: none;
+    }
+    h4 {
+        display: none;
+    }
+
+    hr {
+        display: none;
+    }
+    footer {
+        display: none;
+    }
+    .container body-content {
+        display: none;
+    }
+    #printedit {
+        display: none;
+    }
+    #mainBulletin{
+        border: none;
+        padding: 0;
+    }
+}

@@ -9,7 +9,7 @@
 <div>
     <h4>Sacrament Meeting</h4>
     <hr />
-    <dl class="dl-horizontal" id="sacramentprintdetails">
+<!--    <dl class="dl-horizontal" id="sacramentprintdetails">
         
         <dt>
             Date
@@ -94,6 +94,157 @@
         </dd>
     </dl>
 </div>
+<div id="printedit">
+    <a asp-action="Edit" asp-route-id="@Model.Sacrament.SacramentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>-->
+
+
+<div id="mainBulletin">
+
+    <div class="bulletinRow">
+        <div class="bulletinFullRow">
+            <h3> The Church of Jesus Christ of Later-day Saints </h3>
+        </div>
+     </div>
+
+    <div class="bulletinRow">
+        <div class="bulletinFullRow">
+            <div id="date">@Model.Sacrament.SacramentDate.ToString("MMMM dd, yyyy")</div>
+        </div>
+     </div>
+    
+
+    <div class="bulletinRow">
+        <div> Conducting </div>
+        <div> </div>
+        <div> 
+            @Html.DisplayFor(model => model.Sacrament.ConductingBishopricNavigation.BishopricTitle)
+            @Html.DisplayFor(model => model.Sacrament.ConductingBishopricNavigation.People.FullName)
+         </div>
+     </div>
+        
+     <div class="bulletinRow">
+        <div class="bulletinFullRow">
+            <h4> SACRAMENT SERVICE </h4>
+        </div>
+     </div>
+
+    <div class="bulletinRow">
+        <div> Opening Hymn </div>
+        <div> </div>
+        <div> 
+            Hymn @Html.DisplayFor(model => model.Sacrament.OpeningHymnNavigation.HymnId)
+         </div>
+        <div class="hymn">
+            "@Html.DisplayFor(model => model.Sacrament.OpeningHymnNavigation.HymnTitle)"
+        </div>
+     </div>
+
+    <div class="bulletinRow">
+        <div> Invocation </div>
+        <div> </div>
+        <div> 
+            @Html.DisplayFor(model => model.Sacrament.OpeningPrayerNavigation.FullName)
+         </div>
+        
+     </div>
+
+
+    <div class="bulletinRow">
+        <div class="bulletinFullRow">
+            <h4> WARD BUSINESS </h4>
+        </div>
+        
+     </div>
+
+    <div class="bulletinRow">
+        <div> Sacrament Hymn </div>
+        <div> </div>
+        <div> 
+            Hymn @Html.DisplayFor(model => model.Sacrament.SacramentHymnNavigation.HymnId)
+         </div>
+        <div class="hymn">
+            "@Html.DisplayFor(model => model.Sacrament.SacramentHymnNavigation.HymnTitle)"
+        </div>
+     </div>
+
+     @if(ViewBag.squarepeoplebottom == 0){
+               <div class="bulletinRow">
+                    <div class="bulletinFullRow"> BEARING OF TESTIMONIES </div>
+                </div>
+      }
+    
+      @{top = 0;}
+        @foreach (var item in Model.Speakers)
+        {
+            if(top < ViewBag.squarepeoplebottom) {
+               <div class="bulletinRow">
+                    <div> Speaker </div>
+                     <div> </div>
+                     <div>
+                        @Html.DisplayFor(modelItem => item.People.FullName) - 
+                        @Html.DisplayFor(modelItem => item.Topic.TopicTitle)
+                    </div>
+                </div>
+            }
+            top++;
+
+        }
+
+
+    @if(Model.Sacrament.IntermediateHymnNavigation != null){
+         <div class="bulletinRow">
+            <div> Congregational Hymn </div>
+            <div> </div>
+            <div> 
+
+                
+                Hymn @Html.DisplayFor(model => model.Sacrament.IntermediateHymnNavigation.HymnId)
+             </div>
+            <div class="hymn">
+                "@Html.DisplayFor(model => model.Sacrament.IntermediateHymnNavigation.HymnTitle)"
+            </div>
+         </div>
+     }
+
+     @{top = 0;}
+        @foreach (var item in Model.Speakers)
+        {
+            if(top >= ViewBag.squarepeoplebottom) {
+                <div class="bulletinRow">
+                    <div> Speaker </div>
+                     <div> </div>
+                     <div>
+                        @Html.DisplayFor(modelItem => item.People.FullName) - 
+                        @Html.DisplayFor(modelItem => item.Topic.TopicTitle)
+                    </div>
+                </div>
+            }
+            top++;
+        }
+    <div class="bulletinRow">
+        <div> Closing Hymn </div>
+        <div> </div>
+        <div> 
+            Hymn @Html.DisplayFor(model => model.Sacrament.ClosingHymnNavigation.HymnId)
+         </div>
+        <div class="hymn">
+            "@Html.DisplayFor(model => model.Sacrament.ClosingHymnNavigation.HymnTitle)"
+        </div>
+     </div>
+
+    <div class="bulletinRow">
+        <div> Benediction </div>
+        <div> </div>
+        <div> 
+            @Html.DisplayFor(model => model.Sacrament.ClosingPrayerNavigation.FullName)
+         </div>
+        
+     </div>
+    
+</div>
+
 <div id="printedit">
     <a asp-action="Edit" asp-route-id="@Model.Sacrament.SacramentId">Edit</a> |
     <a asp-action="Index">Back to List</a>
