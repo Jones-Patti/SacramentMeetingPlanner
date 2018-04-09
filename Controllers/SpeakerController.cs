@@ -246,6 +246,22 @@ namespace SacramentMeetingPlanner.Controllers
 
         }
 
+
+        public async Task<string> EditSpeaker(int id, int peopleId, int topicId)
+        {
+
+            var speaker = await _context.Speaker.SingleOrDefaultAsync(m => m.SpeakerId == id);
+            speaker.PeopleId = peopleId;
+            speaker.TopicId = topicId;
+
+            _context.Update(speaker);
+            await _context.SaveChangesAsync();
+
+            string json = getSpeakerList(speaker.SacramentId);
+            return json;
+
+        }
+
         private string getSpeakerList(int sacramentId){
         
             var speakers =  _context.Speaker

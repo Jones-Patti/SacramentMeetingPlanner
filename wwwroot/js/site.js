@@ -41,8 +41,9 @@
                 tmpHtml = tmpHtml.concat('<input type="hidden" value=' +  obj.Speakers[i].SpeakerId   + '>');
                 tmpHtml = tmpHtml.concat('<div>' + obj.Speakers[i].People.FirstName + ' ' + obj.Speakers[i].People.LastName + '</div>');
                 tmpHtml = tmpHtml.concat('<div>' + obj.Speakers[i].Topic.TopicTitle + '</div>');
-                tmpHtml = tmpHtml.concat('<div><a href = "/Speaker/Edit' + obj.Speakers[i].SpeakerId + '"> Edit </a> |');
-                //tmpHtml = tmpHtml.concat('<a href = "/Speaker/Details' + obj.Speakers[i].SpeakerId + '"> Details </a> |');
+                tmpHtml = tmpHtml.concat('<div><a href="#" data-toggle="modal" data-target="#editSpeakerModal" onclick="setEditModelValues');
+                tmpHtml = tmpHtml.concat("('" + obj.Speakers[i].SpeakerId + "','" + obj.Speakers[i].Topic.TopicId + "', '" + obj.Speakers[i].People.PeopleId + "')\" >Edit </a> |"); 
+               // tmpHtml = tmpHtml.concat('<div><a href = "/Speaker/Edit' + obj.Speakers[i].SpeakerId + '"> Edit </a> |');
                 tmpHtml = tmpHtml.concat('<a href="#" data-toggle="modal" data-target="#modelDeleteConfirm" onclick="confirmDelete(');
                 tmpHtml = tmpHtml.concat("'" + obj.Speakers[i].SpeakerId + "', '" + obj.Speakers[i].People.FirstName + "', '" + obj.Speakers[i].People.LastName + "', '" + obj.Speakers[i].Topic.TopicTitle + "')");
                 tmpHtml = tmpHtml.concat('"> Delete</a></div>');
@@ -128,8 +129,43 @@
 
    }
 
-   function setEditModelValues(){
+   var edit_speaker_id;
 
-         $('#edit_speaker_id').val("31");
+
+   function setEditModelValues(speakerId, topicId, peopleId){
+
+         edit_speaker_id = speakerId;
+
+         $('#edit_speaker_id').val(peopleId);
+         $('#edit_speaker_topic_id').val(topicId);
+   }
+
+   function updateSpeaker(){
+
+       
+        $("#editSpeaker_loader").show();
+
+        $.post("/Speaker/EditSpeaker",{
+
+            id: edit_speaker_id,
+            peopleId: $("#edit_speaker_id").val(),
+            topicId: $("#edit_speaker_topic_id").val()
+
+            }, function(data){
+
+               $("#editSpeaker_loader").hide();
+
+                $('#editSpeakerModal').hide();
+                $('body').removeClass('modal-open'); 
+                $('.modal-backdrop').remove();
+
+                if(data != 0){
+                        updateView(data);
+                } else {
+                    alert("There as an error Removing Speaker");
+                }
+               
+
+        });
 
    }

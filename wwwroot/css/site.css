@@ -180,7 +180,7 @@ img {
 
 
 .loader {
-    position: fixed;
+    position: absolute;
     z-index: 1000;
     left: 40%;
     display: none;
