@@ -194,24 +194,8 @@ namespace SacramentMeetingPlanner.Controllers
                 await _context.Database.ExecuteSqlCommandAsync(sql);
                
                 var sacramentId = await _context.Speaker.SingleOrDefaultAsync(m => m.SpeakerId == switchSpeakers.talk1);
-                var speakers = await _context.Speaker
-                                             .Include(s => s.Topic)
-                                             .Include(s => s.People)
-                                             .Where(s => s.SacramentId.Equals(sacramentId.SacramentId))
-                                             .OrderBy(s => s.SpeakerOrder)
-                                             .ToListAsync();
 
-                SpeakerViewModel viewModel = new SpeakerViewModel();
-                viewModel.Speakers = speakers;
-
-                string json = JsonConvert.SerializeObject(viewModel, Formatting.Indented,
-            new JsonSerializerSettings()
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-
+                string json = getSpeakerList(sacramentId.SacramentId);
                 return json;
             }
             else {
@@ -232,35 +216,59 @@ namespace SacramentMeetingPlanner.Controllers
                 _context.Add(speaker);
                 await _context.SaveChangesAsync();
 
-                //return RedirectToAction("Edit", "Sacrament", new { id = speaker.SacramentId });
-            
-
-
-                var speakers = await _context.Speaker
-                                             .Include(s => s.Topic)
-                                             .Include(s => s.People)
-                                             .Where(s => s.SacramentId.Equals(speaker.SacramentId))
-                                             .OrderBy(s => s.SpeakerOrder)
-                                             .ToListAsync();
-
-                SpeakerViewModel viewModel = new SpeakerViewModel();
-                viewModel.Speakers = speakers;
-
-                string json = JsonConvert.SerializeObject(viewModel, Formatting.Indented,
-                new JsonSerializerSettings()
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    MissingMemberHandling = MissingMemberHandling.Ignore,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-
+                string json = getSpeakerList(speaker.SacramentId);
                 return json;
+
             }
             else {
                 return "0";
             }
            
         }
+
+        // POST: Speaker/Delete/5
+        [HttpPost]
+        public async Task<string> RemoveConfirmed(int id)
+        {
+
+
+            var speaker = await _context.Speaker.SingleOrDefaultAsync(m => m.SpeakerId == id);
+            _context.Speaker.Remove(speaker);
+            await _context.SaveChangesAsync();
+
+            //sp/sql to renumber the speaker order
+            string sql = "call renumber_speakers(" + speaker.SpeakerOrder.ToString() + "," + speaker.SacramentId.ToString() + ")";
+            await _context.Database.ExecuteSqlCommandAsync(sql);
+
+            //get new updated list
+            string json = getSpeakerList(speaker.SacramentId);
+            return json;
+
+        }
+
+        private string getSpeakerList(int sacramentId){
+        
+            var speakers =  _context.Speaker
+                                                .Include(s => s.Topic)
+                                                .Include(s => s.People)
+                                                .Where(s => s.SacramentId.Equals(sacramentId))
+                                                .OrderBy(s => s.SpeakerOrder)
+                                                .ToList();
+
+            SpeakerViewModel viewModel = new SpeakerViewModel();
+            viewModel.Speakers = speakers;
+
+            string json = JsonConvert.SerializeObject(viewModel, Formatting.Indented,
+            new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return json;
+
+        } 
 
 
     }

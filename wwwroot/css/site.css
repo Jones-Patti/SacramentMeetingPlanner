@@ -152,19 +152,20 @@ img {
     margin-bottom: 10px;
 }
 
-.draggable {
+.draggable, .draggableHeader {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 3px
 
 }
 
-.draggable div {
-    padding: 10px;
-}
+    .draggable div, .draggableHeader div {
+        padding: 10px
+    }
 
 #speaker_area{
 
+    margin-top: 20px;
     border: solid;
     border-width: 1px;
 
