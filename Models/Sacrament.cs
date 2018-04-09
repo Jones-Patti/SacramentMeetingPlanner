@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SacramentMeetingPlanner.Models
 {
@@ -19,7 +20,7 @@ namespace SacramentMeetingPlanner.Models
         public DateTime SacramentDate { get; set; }
 
         [Required]
-        [Display(Name = "Conduction")]
+        [Display(Name = "Conduncting")]
         public int ConductingBishopric { get; set; }
 
         [Required]
@@ -46,7 +47,9 @@ namespace SacramentMeetingPlanner.Models
         [Display(Name = "Closing Prayer")]
         public int ClosingPrayer { get; set; }
 
+
         public Hymn ClosingHymnNavigation { get; set; }
+
         public People ClosingPrayerNavigation { get; set; }
         public Bishopric ConductingBishopricNavigation { get; set; }
         public Hymn IntermediateHymnNavigation { get; set; }

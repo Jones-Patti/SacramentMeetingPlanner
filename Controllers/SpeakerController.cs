@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SacramentMeetingPlanner.Data;
 using SacramentMeetingPlanner.Models;
+using Newtonsoft.Json;
 
 namespace SacramentMeetingPlanner.Controllers
 {
@@ -67,12 +68,12 @@ namespace SacramentMeetingPlanner.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(speaker);
-                //var count = context.MyTable.Count(t => t.MyContainer.ID == '1');
+               
                 var count = _context.Speaker.Count(t => t.SacramentId == speaker.SacramentId);
                 speaker.SpeakerOrder = (count + 1);
                 _context.Add(speaker);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
+
                 return RedirectToAction("Edit", "Sacrament", new {id =  speaker.SacramentId });
             }
             ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FirstName", speaker.PeopleId);
@@ -107,7 +108,7 @@ namespace SacramentMeetingPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SpeakerId,PeopleId,SacramentId,TopicId,SpeakerOrder")] Speaker speaker)
+        public async Task<IActionResult> Edit(int id, [Bind("SpeakerId,PeopleId,SacramentId,SpeakerOrder,TopicId")] Speaker speaker)
         {
             if (id != speaker.SpeakerId)
             {
@@ -118,8 +119,12 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 try
                 {
-                    _context.Update(speaker);
-                    await _context.SaveChangesAsync();
+                    //switch the orders around
+                    String speakerID = speaker.SpeakerId.ToString();
+                    String speakerOrder = speaker.SpeakerOrder.ToString();
+                    string sql = "call changeTalkOrder( " + speakerID + ","  + speakerOrder + ")";
+                    await _context.Database.ExecuteSqlCommandAsync(sql);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -137,6 +142,7 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FirstName", speaker.PeopleId);
             ViewData["SacramentId"] = new SelectList(_context.Sacrament, "SacramentId", "SacramentId", speaker.SacramentId);
             ViewData["TopicId"] = new SelectList(_context.Topic, "TopicId", "TopicTitle", speaker.TopicId);
+
             return View(speaker);
         }
 
@@ -176,5 +182,90 @@ namespace SacramentMeetingPlanner.Controllers
         {
             return _context.Speaker.Any(e => e.SpeakerId == id);
         }
+
+        [HttpPost]
+        public async Task<string> SwitchSpeakers([Bind("talk1,talk2")]SwitchSpeakers switchSpeakers)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                string sql = "call switch_speakers_by_id(" + switchSpeakers.talk1.ToString() + "," + switchSpeakers.talk2.ToString() + ")";
+                await _context.Database.ExecuteSqlCommandAsync(sql);
+               
+                var sacramentId = await _context.Speaker.SingleOrDefaultAsync(m => m.SpeakerId == switchSpeakers.talk1);
+                var speakers = await _context.Speaker
+                                             .Include(s => s.Topic)
+                                             .Include(s => s.People)
+                                             .Where(s => s.SacramentId.Equals(sacramentId.SacramentId))
+                                             .OrderByDescending(s => s.SpeakerOrder)
+                                             .ToListAsync();
+
+                SpeakerViewModel viewModel = new SpeakerViewModel();
+                viewModel.Speakers = speakers;
+
+                string json = JsonConvert.SerializeObject(viewModel, Formatting.Indented,
+            new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+                return json;
+            }
+            else {
+                return "0";
+            }
+        }
+
+        [HttpPost]
+        public async Task<string> CreateSpeaker([Bind("PeopleId,SacramentId,TopicId")] Speaker speaker)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(speaker);
+
+                var count = _context.Speaker.Count(t => t.SacramentId == speaker.SacramentId);
+                speaker.SpeakerOrder = (count + 1);
+                _context.Add(speaker);
+                await _context.SaveChangesAsync();
+
+                //return RedirectToAction("Edit", "Sacrament", new { id = speaker.SacramentId });
+            
+
+
+                var speakers = await _context.Speaker
+                                             .Include(s => s.Topic)
+                                             .Include(s => s.People)
+                                             .Where(s => s.SacramentId.Equals(speaker.SacramentId))
+                                             .OrderByDescending(s => s.SpeakerOrder)
+                                             .ToListAsync();
+
+                SpeakerViewModel viewModel = new SpeakerViewModel();
+                viewModel.Speakers = speakers;
+
+                string json = JsonConvert.SerializeObject(viewModel, Formatting.Indented,
+                new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
+                return json;
+            }
+            else {
+                return "0";
+            }
+           
+        }
+
+
     }
+
+
+
+
 }

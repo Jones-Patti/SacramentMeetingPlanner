@@ -56,7 +56,7 @@ namespace SacramentMeetingPlanner
 /*
 dotnet ef dbcontext scaffold "Server=132.148.86.237;DataBase=SacramentMeetingPlanner;Uid=sacramentmeeting;Pwd=password" Pomelo.EntityFrameworkCore.MySql -o Models -f
 dotnet ef dbcontext scaffold "Server=132.148.86.237;DataBase=SacramentMeetingPlanner;Uid=sacramentmeeting;Pwd=password" Pomelo.EntityFrameworkCore.MySql -o Models2 -f
-
+//add -t to only pull one table
 
 dotnet aspnet-codegenerator controller -name HymnController -m Hymn -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
 
@@ -69,6 +69,9 @@ dotnet aspnet-codegenerator controller -name TopicController -m Topic -dc Sacram
 dotnet aspnet-codegenerator controller -name SpeakerController -m Speaker -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
 
 dotnet aspnet-codegenerator controller -name SpeakersController -m Speaker -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
+
+dotnet aspnet-codegenerator controller -name SpeakerDo2Controller -m Speaker -dc SacramentMeetingPlannerContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
 
 
 */

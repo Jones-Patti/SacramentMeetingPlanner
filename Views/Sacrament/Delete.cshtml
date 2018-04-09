@@ -1,10 +1,10 @@
-﻿@model SacramentMeetingPlanner.Models.SacramentDetailViewModel
+@model SacramentMeetingPlanner.Models.SacramentDetailViewModel
 
 @{
     ViewData["Title"] = "Sacrament Meeting Details";
 }
 
-<h2>Sacrament Meeting Details</h2>
+<h2>Are you sure you want to delete?</h2>
 
 <div>
     <h4>Sacrament Meeting</h4>
@@ -92,13 +92,9 @@
             @Html.DisplayFor(model => model.Sacrament.ClosingPrayerNavigation.FullName)
         </dd>
     </dl>
-
-    <form asp-action="Delete">
+</div>
+<form asp-action="Delete" method="post">
         <input type="hidden" asp-for="@Model.Sacrament.SacramentId" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
-    </form>
-
-    
-    
-    </div>
+</form>

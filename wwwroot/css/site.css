@@ -152,7 +152,59 @@ img {
     margin-bottom: 10px;
 }
 
-@media print {
+.draggable {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3px
+
+}
+
+.draggable div {
+    padding: 10px;
+}
+
+#speaker_area{
+
+    border: solid;
+    border-width: 1px;
+
+}
+
+
+    #speaker_area .draggable:nth-child(odd) {
+        background-color: #586d936b;
+
+    }
+
+
+
+.loader {
+    position: fixed;
+    z-index: 1000;
+    left: 40%;
+    display: none;
+
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite
+    
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+    /*
+@media print
     nav {
         display: none;
     }
@@ -169,3 +221,4 @@ img {
         display: none;
     }
 }
+        */

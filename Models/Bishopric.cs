@@ -21,6 +21,15 @@ namespace SacramentMeetingPlanner.Models
         [Display(Name = "Bishopric Title")]
         public string BishopricTitle { get; set; }
 
+        public string TitleAndName { 
+            get
+            {
+                return BishopricTitle + " " + People.FullName;
+            }
+        }
+
+
+
         public People People { get; set; }
         public ICollection<Sacrament> Sacrament { get; set; }
 

@@ -18,6 +18,7 @@ namespace SacramentMeetingPlanner.Data
         public virtual DbSet<Speaker> Speaker { get; set; }
         public virtual DbSet<Topic> Topic { get; set; }
 
+
       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

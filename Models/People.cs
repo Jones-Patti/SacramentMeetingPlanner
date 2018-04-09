@@ -33,6 +33,7 @@ namespace SacramentMeetingPlanner.Models
             }
         }
 
+        
         public ICollection<Bishopric> Bishopric { get; set; }
         public ICollection<Sacrament> SacramentClosingPrayerNavigation { get; set; }
         public ICollection<Sacrament> SacramentOpeningPrayerNavigation { get; set; }

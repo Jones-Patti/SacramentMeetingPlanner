@@ -18,19 +18,19 @@
                 <select asp-for="PeopleId" class="form-control" asp-items="ViewBag.PeopleId"></select>
                 <span asp-validation-for="PeopleId" class="text-danger"></span>
             </div>
+
+                <input type="hidden" asp-for="SacramentId" value="@Model.SacramentId" >
+               
+
             <div class="form-group">
-                <label asp-for="SacramentId" class="control-label"></label>
-                <select asp-for="SacramentId" class="form-control" asp-items="ViewBag.SacramentId"></select>
-                <span asp-validation-for="SacramentId" class="text-danger"></span>
+                <label asp-for="SpeakerOrder" class="control-label"></label>
+                <input asp-for="SpeakerOrder" class="form-control" />
+                <span asp-validation-for="SpeakerOrder" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TopicId" class="control-label"></label>
                 <select asp-for="TopicId" class="form-control" asp-items="ViewBag.TopicId"></select>
                 <span asp-validation-for="TopicId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SpeakerOrder" class="control-label"></label>
-                <input asp-for="SpeakerOrder" class ="form-control" asp-items="ViewBag.SpeakerOrder">
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
