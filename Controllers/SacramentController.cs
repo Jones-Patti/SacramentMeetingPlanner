@@ -43,7 +43,7 @@ namespace SacramentMeetingPlanner.Controllers
                                          .Include(s => s.Topic)
                                          .Include(s => s.People)
                                          .Where(s => s.SacramentId.Equals(id))
-                                         .OrderByDescending(s => s.SpeakerOrder)
+                                         .OrderBy(s => s.SpeakerOrder)
                                          .ToListAsync();
 
 
@@ -96,7 +96,7 @@ namespace SacramentMeetingPlanner.Controllers
                                          .Include(s => s.Topic)
                                          .Include(s => s.People)
                                          .Where(s => s.SacramentId.Equals(id))
-                                         .OrderByDescending(s => s.SpeakerOrder)
+                                         .OrderBy(s => s.SpeakerOrder)
                                          .ToListAsync();
 
             int count = _context.Speaker.Count(t => t.SacramentId == id);
@@ -200,7 +200,7 @@ namespace SacramentMeetingPlanner.Controllers
                                          .Include(s => s.Topic)
                                          .Include(s => s.People)
                                          .Where(s => s.SacramentId.Equals(id))
-                                         .OrderByDescending(s => s.SpeakerOrder)
+                                         .OrderBy(s => s.SpeakerOrder)
                                          .ToListAsync();
 
             viewModel.Speakers = speakers;
@@ -290,7 +290,7 @@ namespace SacramentMeetingPlanner.Controllers
                                          .Include(s => s.Topic)
                                          .Include(s => s.People)
                                          .Where(s => s.SacramentId.Equals(id))
-                                         .OrderByDescending(s => s.SpeakerOrder)
+                                         .OrderBy(s => s.SpeakerOrder)
                                          .ToListAsync();
 
             int count = _context.Speaker.Count(t => t.SacramentId == id);

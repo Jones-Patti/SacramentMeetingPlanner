@@ -198,7 +198,7 @@ namespace SacramentMeetingPlanner.Controllers
                                              .Include(s => s.Topic)
                                              .Include(s => s.People)
                                              .Where(s => s.SacramentId.Equals(sacramentId.SacramentId))
-                                             .OrderByDescending(s => s.SpeakerOrder)
+                                             .OrderBy(s => s.SpeakerOrder)
                                              .ToListAsync();
 
                 SpeakerViewModel viewModel = new SpeakerViewModel();
@@ -240,7 +240,7 @@ namespace SacramentMeetingPlanner.Controllers
                                              .Include(s => s.Topic)
                                              .Include(s => s.People)
                                              .Where(s => s.SacramentId.Equals(speaker.SacramentId))
-                                             .OrderByDescending(s => s.SpeakerOrder)
+                                             .OrderBy(s => s.SpeakerOrder)
                                              .ToListAsync();
 
                 SpeakerViewModel viewModel = new SpeakerViewModel();
