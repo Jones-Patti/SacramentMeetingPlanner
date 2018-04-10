@@ -192,8 +192,6 @@ namespace SacramentMeetingPlanner.Controllers
 
            
 
-            //viewModel.Bishopric = bishop;
-
             ViewData["MeetingID"] = id.Value;
 
             var speakers = await _context.Speaker

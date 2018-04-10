@@ -27,7 +27,14 @@
     </thead>
     <tbody>
 @foreach (var item in Model.Sacraments) {
-        <tr>
+
+        string selectedRow = "";
+        
+            if (item.SacramentId == (int?)ViewData["SacramentId"])
+            {
+                selectedRow = "success";
+            }
+       <tr class="@selectedRow">
             <td>
                 @Html.DisplayFor(modelItem => item.SacramentDate)
             </td>
