@@ -1,9 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Home Page";
 }
 
-<h2> Home Page </h2>
+<h2> Welcome to the Sacrament Meeting Planner </h2>
 <div class="Iwantitcentered">
-Welcome to our Sacrament Meeting Planner.
 </div>
-<img src="~/images/rexburgtemple.jpg" alt="temple">
+<div id="grid-container">
+    <div id="temple">
+        <img src="~/images/rexburgtemple.jpg" alt="temple">
+    </div>
+    <div id="icons">
+        <div>
+            <a asp-area="" asp-controller="Hymn" asp-action="Index"><img src="~/images/hymns.jpg" alt="hymns">
+            <p>Hymns</p></a>
+        </div>
+        <div>
+            <a asp-area="" asp-controller="Sacrament" asp-action="Index"><img src="~/images/meetings.png" alt="meeting">
+            <p>Meetings</p></a>
+        </div>
+        <div>
+            <a asp-area="" asp-controller="Member" asp-action="Index"><img src="~/images/members.jpg" alt="members">
+            <p>Members</p></a>
+        </div>
+        <div>
+            <a asp-area="" asp-controller="Bishopric" asp-action="Index"><img src="~/images/bishopric.png" alt="bishopric">
+            <p>Bishopric</p></a>
+        </div>
+        <div>
+            <a asp-area="" asp-controller="Speaker" asp-action="Index"><img src="~/images/speakers.jpg" alt="speakers">
+            <p>Speakers</p></a>
+        </div>
+        <div>
+            <a asp-area="" asp-controller="Topic" asp-action="Index"><img src="~/images/topics.jpg" alt="topics">        
+            <p>Topics</p></a>
+        </div>
+    </div>
+</div>

@@ -108,9 +108,9 @@ h2 {
 }
 
 img {
-    max-width: 65%;
+    max-width: 100%;
     border-radius: 20px;
-    box-shadow: 5px 5px 5px black
+    box-shadow: 5px 5px 5px black;
 }
 
 .moto {
@@ -251,6 +251,34 @@ img {
     font-style: italic;
     letter-spacing: 4px;
 
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: 2.25fr 1fr;
+    grid-gap: 4px;
+}
+
+#temple {
+    padding: 15px;
+}
+
+#icons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 15px;
+    padding: 15px;
+}
+
+#icons a p {
+    text-align: center;
+    text-declaration: none;
+    margin-top: 10px;
+    color: black;
+}
+
+#icons label {
+    text-align: center;
 }
 
 /* Hide/rearrange for smaller screens */
