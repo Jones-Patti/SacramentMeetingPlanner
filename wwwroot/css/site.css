@@ -26,14 +26,6 @@ font-family: 'Archivo Black', sans-serif;*
     margin: 15px
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none
-    }
-}
-
 table {
     border: solid;
     border-width: 1px;
@@ -258,4 +250,28 @@ img {
 
 }
 
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 990px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none
+    }
 
+    h2 {
+        margin-top: 130px;
+
+    }
+}
+
+
+@media screen and (max-width: 766px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none
+    }
+
+    h2 {
+        margin-top: 80px
+
+    }
+}
