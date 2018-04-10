@@ -27,6 +27,8 @@ namespace SacramentMeetingPlanner.Controllers
             return View(await sacramentMeetingPlannerContext.ToListAsync());
         }
 
+       
+
         // GET: Speaker/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -64,17 +66,17 @@ namespace SacramentMeetingPlanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SpeakerId,PeopleId,SacramentId,TopicId")] Speaker speaker)
         {
-            
+
             if (ModelState.IsValid)
             {
                 _context.Add(speaker);
-               
+
                 var count = _context.Speaker.Count(t => t.SacramentId == speaker.SacramentId);
                 speaker.SpeakerOrder = (count + 1);
                 _context.Add(speaker);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Edit", "Sacrament", new {id =  speaker.SacramentId });
+                return RedirectToAction("Edit", "Sacrament", new { id = speaker.SacramentId });
             }
             ViewData["PeopleId"] = new SelectList(_context.People, "PeopleId", "FirstName", speaker.PeopleId);
             ViewData["SacramentId"] = new SelectList(_context.Sacrament, "SacramentId", "SacramentId", speaker.SacramentId);
@@ -119,11 +121,10 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 try
                 {
-                    //switch the orders around
-                    String speakerID = speaker.SpeakerId.ToString();
-                    String speakerOrder = speaker.SpeakerOrder.ToString();
-                    string sql = "call changeTalkOrder( " + speakerID + ","  + speakerOrder + ")";
-                    await _context.Database.ExecuteSqlCommandAsync(sql);
+                    
+
+                    _context.Update(speaker);
+                    await _context.SaveChangesAsync();
 
                 }
                 catch (DbUpdateConcurrencyException)
